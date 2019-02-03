@@ -1,26 +1,59 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-
+import Person from './Person/Person'
 class App extends Component {
+    state = {
+      person: [
+          {name: 'Max', age: 27},
+          {name: 'Manu', age: 29},
+          {name: 'Stef', age: 31}
+      ]
+    };
+
+    nameChangeHandler = (newName) => {
+        this.setState({
+            person: [
+                {name: newName, age: 27},
+                {name: 'Manu', age: 29},
+                {name: 'Stef', age: 41}
+            ]
+        })
+    };
+
+    onChangeHandler = (event) => {
+        this.setState({
+            person: [
+                {name: 'Max', age: 27},
+                {name: event.target.value, age: 29},
+                {name: 'Stef', age: 31}
+            ]
+        })
+    };
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+        <h1>
+          It is React JS App
+        </h1>
           <p>
-            Edit <code>src/App.js</code> and save to reload.
+              This is working!
           </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+          <button onClick={this.nameChangeHandler.bind(this, "Maximilian")}>Switch name</button>
+          <Person
+              name = {this.state.person[0].name}
+              age = {this.state.person[0].age}
+          />
+          <Person
+              name = {this.state.person[1].name}
+              age = {this.state.person[1].age}
+              click = {this.nameChangeHandler.bind(this, 'Max!')}
+              changed = {this.onChangeHandler}
+          >My hobbies: Racing </Person>
+          <Person
+              name = {this.state.person[2].name}
+              age = {this.state.person[2].age}/>
       </div>
+      //   React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'This is my new react app'))
     );
   }
 }
